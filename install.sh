@@ -1,38 +1,41 @@
 # Detect the current shell
 current_shell=$(basename "$SHELL")
 
-# Determine the appropriate RC file
+echo "osh: Detecting current shell"
 case $current_shell in
 bash)
-  rc_file="${HOME}/.bashrc"
+  rc_file=""
   ;;
 zsh)
-  rc_file="${HOME}/.zshrc"
+  rc_file=".zshrc"
   ;;
 ksh)
-  rc_file="${HOME}/.kshrc"
+  rc_file=".kshrc"
   ;;
 tcsh)
-  rc_file="${HOME}/.tcshrc"
+  rc_file=".tcshrc"
   ;;
 csh)
-  rc_file="${HOME}/.cshrc"
+  rc_file=".cshrc"
   ;;
 fish)
-  rc_file="${HOME}/.config/fish/config.fish"
+  rc_file=".config/fish/config.fish"
   ;;
 *)
   echo "Unrecognized or unsupported shell: $current_shell"
   rc_file=""
   ;;
 esac
-
+echo "osh: current shell is $current_shell"
 # Append the function to the identified RC file
 if [ -n "$rc_file" ]; then
-  echo "Appending the function to the RC file: $rc_file"
-  cat >>"$rc_file" <<'EOF'
-
- osh() {
+  if [ -n "$(LC_ALL=C type -t osh)" ] && [ "$(LC_ALL=C type -t osh)" = function ]; then
+    echo "Looks like osh is already installed. Skipping the installation.
+          Please run 'source ~/$rc_file' to make sure it is loaded "
+  else
+    echo "Installing osh into : ~/$rc_file"
+    cat >>"${HOME}/$rc_file" <<'EOF'
+osh() {
     last_command=$(fc -ln -1)
     last_command=$(echo "$last_command" | sed 's/^[[:space:]]*//')
     last_output=$(eval "$last_command")
@@ -44,8 +47,11 @@ if [ -n "$rc_file" ]; then
     fi
 }
 EOF
-  echo "Functionality installer successfully. Please run `source $rc_file`"
+
+  fi
+
+  echo "Osh installed successfully. Please run 'source ~/$rc_file'"
 
 else
-  echo "Could not append the function to the RC file."
+  echo "Failed to install osh. rc file not found for the current shell."
 fi
