@@ -1,18 +1,21 @@
 import os
-import openai
+import sys
 from models import models
 from dotenv import load_dotenv
 load_dotenv()
 
-openai.api_type = os.getenv("OPENAI_API_TYPE")
-openai.api_key = os.getenv("OPENAI_API_KEY")
-openai.api_base = os.getenv("OPENAI_API_BASE")
-openai.api_version = os.getenv("OPENAI_API_VERSION")
 
-CURRENT_MODEL = models.get(os.getenv("CURRENT_MODEL"))
-DEPLOYMENT_ID = os.getenv("DEPLOYMENT_ID")
+current_model = models.get(os.getenv("CURRENT_MODEL"))
 
-def callCurrentModelWithData(data):
-    # figure out currently configured model
-    # calls it in a generic manner
-    # returns the result
+
+def callCurrentModelWithData(input):
+    # take even number of args, where every pair represents key value
+    data = {}
+    for i in range(0, len(input), 2):
+        data.update({input[i]: input[i+1]})
+    print(current_model(data))
+
+
+if __name__ == "__main__":
+    if len(sys.argv) > 0:
+        callCurrentModelWithData(sys.argv[1:])
