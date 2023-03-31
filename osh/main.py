@@ -1,6 +1,6 @@
 import os
 import sys
-from models import models
+from osh.models import models
 from dotenv import load_dotenv
 load_dotenv()
 
