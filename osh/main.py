@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv('env_creds')
 
+
 from .models import models
 
 current_model = models.get(os.getenv("CURRENT_MODEL"))
