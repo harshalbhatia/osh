@@ -3,12 +3,14 @@ import sys
 
 from dotenv import load_dotenv
 
-with open(os.path.expanduser('~/.osh_env')) as f:
-    try:
-        load_dotenv('~/.osh_env')
-    except Exception as _:
-        print("Error loading env file")
-        raise Exception("Error loading env file")
+if os.path.isfile(os.path.expanduser('~/.osh_env')):
+    load_dotenv(os.path.expanduser('~/.osh_env'))
+else:
+    print(
+        "ERROR: Error loading env file. Please create a file at ~/.osh_env and add the following"
+        " env variables: OPENAI_API_KEY, OPENAI_API_TYPE, OPENAI_API_BASE,"
+        " OPENAI_API_VERSION, OPENAI_API_DEPLOYMENT_ID, CURRENT_MODEL.")
+    sys.exit(1)
 
 from osh.models import models
 
