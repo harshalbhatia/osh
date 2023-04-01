@@ -21,7 +21,10 @@ def callCurrentModelWithData(input):
     # take even number of args, where every pair represents key value
     data = {}
     for i in range(0, len(input), 2):
-        data.update({input[i]: input[i + 1]})
+        msg = input[i + 1]
+        if input[i] == "output":
+            msg = msg[:1800]
+        data.update({input[i]: msg})
     print(current_model(data))
 
 
