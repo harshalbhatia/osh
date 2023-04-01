@@ -13,11 +13,13 @@ def get_requirements():
     with open('requirements.txt', "r") as f:
         return [line.strip() for line in f.readlines()]
 
+
 class CustomInstallCommand(install):
     def run(self):
         super().run()
         print(cmdline('chmod +x install.sh').decode('utf-8'))
         print(cmdline('./install.sh').decode('utf-8'))
+
 
 setup(
     name="osh_python",
@@ -33,5 +35,10 @@ setup(
     ],
     cmdclass={
         'install': CustomInstallCommand,
-    }
+    },
+    entry_points={
+        'console_scripts': [
+            'osh_py = osh.main:main',
+        ],
+    },
 )
