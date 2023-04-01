@@ -1,5 +1,5 @@
-from .codex import predict
+from .turbo import predict
 
 models = {
-    'codex': predict
+    'turbo': predict
 }
