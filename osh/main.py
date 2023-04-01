@@ -2,7 +2,8 @@ import os
 import sys
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv('.env')
+load_dotenv('env')
 
 from osh.models import models
 
