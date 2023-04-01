@@ -13,10 +13,9 @@ def get_requirements():
     with open('requirements.txt', "r") as f:
         return [line.strip() for line in f.readlines()]
 
-class PostInstallCommand(install):
-    """Post-installation for installation mode."""
+class CustomInstallCommand(install):
     def run(self):
-        install.run(self)
+        super().run()
         print(cmdline('chmod +x install.sh').decode('utf-8'))
         print(cmdline('./install.sh').decode('utf-8'))
 
@@ -33,6 +32,6 @@ setup(
         "Programming Language :: Python :: 3.8"
     ],
     cmdclass={
-        'install': PostInstallCommand,
+        'install': CustomInstallCommand,
     }
 )
