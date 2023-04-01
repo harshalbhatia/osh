@@ -1,6 +1,0 @@
-OPENAI_API_TYPE=azure
-OPENAI_API_KEY=07ef03b50d5941eca72281a9fc9255ad
-OPENAI_API_BASE=https://vchar-playground.openai.azure.com
-OPENAI_API_VERSION=2023-03-15-preview
-OPENAI_API_DEPLOYMENT_ID=vchar-play-02
-CURRENT_MODEL=codex
