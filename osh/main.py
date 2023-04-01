@@ -3,11 +3,15 @@ import sys
 
 from dotenv import load_dotenv
 
-load_dotenv()
+with open(os.path.expanduser('~/.osh_env')) as f:
+    try:
+        load_dotenv('~/.osh_env')
+    except Exception as _:
+        print("Error loading env file")
+        raise Exception("Error loading env file")
 
 from osh.models import models
 
-print("Current model: ", os.getenv("CURRENT_MODEL"), "available models:", models.keys())
 current_model = models.get(os.getenv("CURRENT_MODEL"))
 
 
