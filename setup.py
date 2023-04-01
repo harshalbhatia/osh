@@ -1,4 +1,3 @@
-import atexit
 from setuptools import setup, find_packages
 from subprocess import PIPE, Popen
 from setuptools.command.install import install
