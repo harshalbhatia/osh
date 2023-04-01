@@ -1,11 +1,13 @@
 import os
 import sys
+
 from dotenv import load_dotenv
 
 load_dotenv()
 
 from osh.models import models
 
+print("Current model: ", os.getenv("CURRENT_MODEL"), "available models:", models.keys())
 current_model = models.get(os.getenv("CURRENT_MODEL"))
 
 
@@ -18,7 +20,7 @@ def callCurrentModelWithData(input):
 
 
 def main():
-    if (len(sys.argv) >= 4) and ((len(sys.argv)-1) % 2 == 0):
+    if (len(sys.argv) >= 4) and ((len(sys.argv) - 1) % 2 == 0):
         callCurrentModelWithData(sys.argv[1:])
     else:
         print("Invalid number of arguments provided:" + str(len(sys.argv)))
