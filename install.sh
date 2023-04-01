@@ -35,7 +35,8 @@ if [ -n "$rc_file" ]; then
   else
     echo "Installing osh into : ~/$rc_file"
     cat >>"${HOME}/$rc_file" <<'EOF'
-osh() {
+
+ osh() {
     last_command=$(fc -ln -1)
     last_command=$(echo "$last_command" | sed 's/^[[:space:]]*//')
     last_output=$(eval "$last_command")
