@@ -41,7 +41,7 @@ osh() {
     last_output=$(eval "$last_command")
     retVal=$?
     if [ $retVal -ne 0 ]; then
-        echo "TBD"
+        osh_python "input" "$last_command" "output" "$last_output" "return_code" "$retVal"
     else
         echo "Your last command ran successfully. Please summon me only when something goes wrong."
     fi
