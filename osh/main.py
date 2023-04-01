@@ -18,10 +18,10 @@ def callCurrentModelWithData(input):
 
 
 def main():
-    if (len(sys.argv) >= 4) and (len(sys.argv) % 2 == 0):
+    if (len(sys.argv) >= 4) and ((len(sys.argv)-1) % 2 == 0):
         callCurrentModelWithData(sys.argv[1:])
     else:
-        print("Invalid number of arguments provided")
+        print("Invalid number of arguments provided:" + str(len(sys.argv)))
 
 
 if __name__ == "__main__":
