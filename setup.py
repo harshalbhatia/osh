@@ -13,16 +13,12 @@ def get_requirements():
     with open('requirements.txt', "r") as f:
         return [line.strip() for line in f.readlines()]
 
-
-class CustomInstallCommand(install):
+class PostInstallCommand(install):
+    """Post-installation for installation mode."""
     def run(self):
-        def _post_install():
-            print(cmdline('chmod +x install.sh').decode('utf-8'))
-            print(cmdline('./install.sh').decode('utf-8'))
-
-        atexit.register(_post_install)
         install.run(self)
-
+        print(cmdline('chmod +x install.sh').decode('utf-8'))
+        print(cmdline('./install.sh').decode('utf-8'))
 
 setup(
     name="osh_python",
@@ -37,6 +33,6 @@ setup(
         "Programming Language :: Python :: 3.8"
     ],
     cmdclass={
-        'install': CustomInstallCommand,
+        'install': PostInstallCommand,
     }
 )
