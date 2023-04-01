@@ -1,3 +1,5 @@
+import os
+
 from . import turbo, curie
 
 models = {
@@ -6,10 +8,7 @@ models = {
 }
 
 current_model_name = os.getenv('CURRENT_MODEL')
-
 current_model = models.get(current_model_name)
 
-if current_model:
-    current_model()
-else:
+if current_model is None:
     print(f'Invalid model name: {current_model_name}')
